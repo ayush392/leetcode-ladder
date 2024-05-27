@@ -101,7 +101,7 @@ async function Home({ searchParams }: any) {
 
   return (
     <section className=" max-w-6xl mx-auto">
-      <Filter />
+      <Filter contest={contest} difficulty={difficulty} credit={credit} search={search} />
       <table className="w-full text-left text-gray-700 dark:text-gray-400">
         <TableHead />
         <tbody>

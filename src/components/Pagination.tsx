@@ -93,7 +93,7 @@ function Pagination({ totalQuestions, currentPage, limit = 20 }: any) {
 
         <button
           className="py-2 px-2.5 rounded-md border"
-          onClick={() => handlePageChange(page + 1)}
+          onClick={() => handlePageChange(parseInt(page) + 1)}
         >
           {rightArrow}
         </button>
