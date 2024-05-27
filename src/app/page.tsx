@@ -112,7 +112,7 @@ async function Home({ searchParams }: any) {
                 className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800"
               >
                 <td className="px-6 py-3">
-                  <Checkbox />
+                  <Checkbox questionId={question.questionId}/>
                 </td>
                 <td className="px-6 py-3">
                   <a
