@@ -1,6 +1,5 @@
 import questionModel from "@/database/config/models/question.model";
 import connectToDb from "../database/config/connect";
-import Image from "next/image";
 import Filter from "@/components/Filter";
 import TableHead from "@/components/TableHead";
 import Checkbox from "@/components/Checkbox";
@@ -66,14 +65,13 @@ import Pagination from "@/components/Pagination";
 async function Home({ searchParams }: any) {
   await connectToDb();
   let { sort, contest, difficulty, credit, search, page, limit } = searchParams;
-  if (!page) page = 1;
-  if (!limit) limit = 20;
+  if (!page || isNaN(parseInt(page))) page = 1;
+  if (!limit || isNaN(parseInt(limit))) limit = 20;
 
   let query = {};
   let sortQuery = {};
 
   if (search) {
-    // search in title using regex
     query = { ...query, title: { $regex: search, $options: "i" } };
   }
 
@@ -153,7 +151,7 @@ async function Home({ searchParams }: any) {
           })}
         </tbody>
       </table>
-      <Pagination />
+      <Pagination totalQuestions = {totalQuestions} currentPage={page} limit={limit} />
     </section>
   );
 }
