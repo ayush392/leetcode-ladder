@@ -5,63 +5,6 @@ import TableHead from "@/components/TableHead";
 import Checkbox from "@/components/Checkbox";
 import Pagination from "@/components/Pagination";
 
-/*
- const getQuery = (page: number) => {
-    return `query mostRecentPastContest {
-      pastContests(pageNo: ${page}, numPerPage: 1) {
-        data {
-          title
-          titleSlug
-          questions {
-            title
-            titleSlug
-            questionId
-            credit
-          }
-        }
-      }
-    }
-  `;
-  };
-
-  async function savedataInDb(data: any) {
-    await connectToDb();
-    try {
-      const { title, titleSlug, questions } = data;
-      const contest = { title, titleSlug };
-      questions.forEach(async (question: any) => {
-        const { title, titleSlug, credit, questionId } = question;
-        await questionModel.create({
-          contest,
-          title,
-          titleSlug,
-          credit,
-          questionId,
-        });
-      });
-    } catch (error: any) {
-      console.log(error.message);
-    }
-  }
-
-  for (let i = 1; i <= 400; i++) {
-    try {
-      const query = getQuery(i);
-      const dataT = await fetch("https://leetcode.com/graphql", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ query }),
-      });
-      const data = await dataT.json();
-      console.log(data.data.pastContests.data, "data fetched");
-
-      await savedataInDb(data.data.pastContests.data[0]);
-    } catch (error: any) {
-      console.log(error.message);
-    }
-  }
-*/
-
 async function Home({ searchParams }: any) {
   await connectToDb();
   let { sort, contest, difficulty, credit, search, page, limit } = searchParams;

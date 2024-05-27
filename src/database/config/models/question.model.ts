@@ -4,6 +4,10 @@ const questionSchema = new mongoose.Schema({
   contest: {
     title: String,
     titleSlug: String,
+    type: {
+      type: String,
+      enum: ["Weekly", "Biweekly"],
+    },
   },
   title: {
     type: String,
