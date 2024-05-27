@@ -38,8 +38,8 @@ function Filter({contest, difficulty, credit, search}: {contest: string, difficu
 
   const items = {
     contest: [
-      { name: "Weekly Contest", value: "weekly" },
-      { name: "Biweekly Contest", value: "biweekly" },
+      { name: "Weekly Contest", value: "Weekly" },
+      { name: "Biweekly Contest", value: "Biweekly" },
     ],
     difficulty: [
       { name: "Easy", value: "Easy", color: "text-teal-600" },
