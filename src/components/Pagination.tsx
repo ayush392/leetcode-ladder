@@ -79,7 +79,7 @@ function Pagination({ totalQuestions, currentPage, limit = 20 }: any) {
         <div className="flex gap-1.5 items-center">
           <span>Showing page</span>
           <input
-            className=" w-12 rounded py-0.5 px-1 border"
+            className=" w-12 rounded-md py-0.5 px-1 border"
             type="text"
             value={page}
             onChange={(e) => setPage(e.target.value)}
