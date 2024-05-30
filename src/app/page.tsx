@@ -44,7 +44,7 @@ async function Home({ searchParams }: any) {
   // <a href={`https://leetcode.com/problems/${question.titleSlug}`} target="_blank" rel="noreferrer">
 
   return (
-    <section className=" max-w-6xl mx-auto">
+    <section className="max-w-6xl mx-auto ">
       <Filter
         contest={contest}
         difficulty={difficulty}
@@ -52,7 +52,7 @@ async function Home({ searchParams }: any) {
         search={search}
       />
       <Suspense fallback={<div>Loading...</div>}>
-        <table className="w-full text-left text-gray-700 dark:text-gray-400">
+        <table className="w-full text-left text-gray-700">
           <TableHead />
           <tbody>
             {questions.map((question: any) => {

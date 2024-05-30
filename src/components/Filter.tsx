@@ -118,13 +118,13 @@ function Filter({
         />
 
         <label htmlFor="search" className="relative">
-          <div className="absolute inset-y-0 flex items-center pl-2 text-gray-6 dark:text-dark-gray-6 pointer-events-none left-0">
-            <SearchIcon className={"text-gray-400 dark:text-gray-300"} />
+          <div className="absolute inset-y-0 flex items-center pl-2 text-gray-6 pointer-events-none left-0">
+            <SearchIcon className={"text-gray-400 "} />
           </div>
           <input
             type="text"
             name="search"
-            className="border ps-8 border-gray-300 rounded-md p-1 focus:outline-none focus:ring-1 focus:ring-gray-200 dark:focus:ring-gray-700"
+            className="border ps-8 border-gray-300 rounded-md p-1 focus:outline-none focus:ring-1 focus:ring-gray-200"
             placeholder="Search questions"
             value={filters.search}
             onChange={handleChange}
@@ -139,7 +139,7 @@ function Filter({
               return (
                 <div
                   key={index}
-                  className="flex gap-1 items-center text-xs bg-gray-200 px-2 py-1.5 rounded-md dark:bg-gray-700 "
+                  className="flex gap-1 items-center text-xs bg-gray-200 px-2 py-1.5 rounded-md  "
                 >
                   <span className="">{value}</span>
                   <button
@@ -158,7 +158,7 @@ function Filter({
             Object.values(filters).some(
               (filter) => filter !== "" && filter !== undefined
             )
-              ? "flex items-center gap-1.5 text-gray-500 hover:text-gray-700 dark:text-gray-400"
+              ? "flex items-center gap-1.5 text-gray-500 hover:text-gray-700"
               : "hidden"
           }`}
           onClick={handleResetFilter}
