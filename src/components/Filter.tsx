@@ -20,6 +20,7 @@ function Filter({contest, difficulty, credit, search}: {contest: string, difficu
         params.delete(name);
       } else {
         params.set(name, value);
+        params.set("page", "1");
       }
       return params.toString();
     },
@@ -111,8 +112,8 @@ function Filter({contest, difficulty, credit, search}: {contest: string, difficu
           onClick={() => setIsOpen("")}
         />
       </div>
-      <div className="flex justify-between items-center">
-        <div className="flex gap-3">
+      <div className="flex gap-8 items-center">
+        <div className="flex gap-4">
           {Object.entries(filters).map(([key, value], index) => {
             if (value) {
               return (
@@ -132,7 +133,7 @@ function Filter({contest, difficulty, credit, search}: {contest: string, difficu
             }
           })}
         </div>
-        <button onClick={handleResetFilter}>reset</button>
+        <button className={`${Object.values(filters).some(filter => filter !== "" && filter !== undefined) ? 'block' : 'hidden'}`} onClick={handleResetFilter}>reset</button>
       </div>
     </section>
   );

@@ -1,5 +1,5 @@
 "use client";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 const leftArrow = (
@@ -43,6 +43,10 @@ function Pagination({ totalQuestions, currentPage, limit = 20 }: any) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
+
+  useEffect(()=>{
+    setPage(currentPage);
+  },[currentPage])
 
   const createQueryString = useCallback(
     (name: string, value: string) => {
