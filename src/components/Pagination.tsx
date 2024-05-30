@@ -1,40 +1,7 @@
 "use client";
 import { useCallback, useEffect, useState } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-
-const leftArrow = (
-  <svg
-    className="w-3.5 h-3.5"
-    xmlns="http://www.w3.org/2000/svg"
-    fill="none"
-    viewBox="0 0 6 10"
-  >
-    <path
-      className=" stroke-green-700"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      strokeWidth="2"
-      d="M5 1L1 5l4 4"
-    />
-  </svg>
-);
-
-const rightArrow = (
-  <svg
-    className="w-3.5 h-3.5"
-    xmlns="http://www.w3.org/2000/svg"
-    fill="none"
-    viewBox="0 0 6 10"
-  >
-    <path
-      className=" stroke-green-700"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      strokeWidth="2"
-      d="M1 1l4 4-4 4"
-    />
-  </svg>
-);
+import { LeftArrow, RightArrow } from "./icons";
 
 function Pagination({ totalQuestions, currentPage, limit = 20 }: any) {
   const totalPages = Math.ceil(totalQuestions / limit);
@@ -44,9 +11,9 @@ function Pagination({ totalQuestions, currentPage, limit = 20 }: any) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  useEffect(()=>{
+  useEffect(() => {
     setPage(currentPage);
-  },[currentPage])
+  }, [currentPage]);
 
   const createQueryString = useCallback(
     (name: string, value: string) => {
@@ -74,10 +41,12 @@ function Pagination({ totalQuestions, currentPage, limit = 20 }: any) {
     <section className="w-full my-4">
       <div className="flex items-center justify-center gap-3 w-fit ml-auto">
         <button
-          className="py-2 px-2.5 rounded-md border"
+          className={`py-2 px-2.5 rounded-md border hover:bg-gray-200 ${
+            page == 1 ? "cursor-auto opacity-50 hover:bg-inherit" : ""
+          }`}
           onClick={() => handlePageChange(page - 1)}
         >
-          {leftArrow}
+          <LeftArrow className=" stroke-gray-800" />
         </button>
 
         <div className="flex gap-1.5 items-center">
@@ -96,10 +65,12 @@ function Pagination({ totalQuestions, currentPage, limit = 20 }: any) {
         </div>
 
         <button
-          className="py-2 px-2.5 rounded-md border"
+          className={`py-2 px-2.5 rounded-md border hover:bg-gray-200 ${
+            page == totalPages ? "cursor-auto opacity-50 hover:bg-inherit" : ""
+          }`}
           onClick={() => handlePageChange(parseInt(page) + 1)}
         >
-          {rightArrow}
+          <RightArrow className=" stroke-gray-700" />
         </button>
       </div>
     </section>
