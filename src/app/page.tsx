@@ -4,6 +4,7 @@ import Filter from "@/components/Filter";
 import TableHead from "@/components/TableHead";
 import Checkbox from "@/components/Checkbox";
 import Pagination from "@/components/Pagination";
+import { Suspense } from "react";
 
 async function Home({ searchParams }: any) {
   await connectToDb();
@@ -44,57 +45,68 @@ async function Home({ searchParams }: any) {
 
   return (
     <section className=" max-w-6xl mx-auto">
-      <Filter contest={contest} difficulty={difficulty} credit={credit} search={search} />
-      <table className="w-full text-left text-gray-700 dark:text-gray-400">
-        <TableHead />
-        <tbody>
-          {questions.map((question: any) => {
-            return (
-              <tr
-                key={question._id}
-                className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800"
-              >
-                <td className="px-6 py-3">
-                  <Checkbox questionId={question.questionId}/>
-                </td>
-                <td className="px-6 py-3">
-                  <a
-                    href={`https://leetcode.com/problems/${question.titleSlug}`}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="hover:text-blue-500 "
-                  >
-                    {question.title}
-                  </a>
-                </td>
-                <td className="px-6 py-3">{question.credit}</td>
-                <td
-                  className={`px-6 py-3 ${
-                    question.difficulty === "Easy"
-                      ? "text-teal-600"
-                      : question.difficulty === "Medium"
-                      ? "text-yellow-600"
-                      : "text-red-600"
-                  }`}
+      <Filter
+        contest={contest}
+        difficulty={difficulty}
+        credit={credit}
+        search={search}
+      />
+      <Suspense fallback={<div>Loading...</div>}>
+        <table className="w-full text-left text-gray-700 dark:text-gray-400">
+          <TableHead />
+          <tbody>
+            {questions.map((question: any) => {
+              return (
+                <tr
+                  key={question._id}
+                  className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800"
                 >
-                  {question.difficulty || "N/A"}
-                </td>
-                <td className="px-6 py-3">
-                  <a
-                    href={`https://leetcode.com/contest/${question.contest.titleSlug}`}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="hover:text-blue-500 "
+                  <td className="px-6 py-3">
+                    <Checkbox questionId={question.questionId} />
+                  </td>
+                  <td className="px-6 py-3 overflow-clip">
+                    <a
+                      href={`https://leetcode.com/problems/${question.titleSlug}`}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="hover:text-blue-500 "
+                    >
+                      {question.title}
+                    </a>
+                  </td>
+                  <td className="px-6 py-3">{question.credit}</td>
+                  <td
+                    className={`px-6 py-3 ${
+                      question.difficulty === "Easy"
+                        ? "text-green-500"
+                        : question.difficulty === "Medium"
+                        ? "text-amber-500"
+                        : "text-red-500"
+                    }`}
                   >
-                    {question.contest.title}
-                  </a>
-                </td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
-      <Pagination totalQuestions = {totalQuestions} currentPage={page} limit={limit} />
+                    {question.difficulty || "N/A"}
+                  </td>
+                  <td className="px-6 py-3 whitespace-nowrap">
+                    <a
+                      href={`https://leetcode.com/contest/${question.contest.titleSlug}`}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="hover:text-blue-500 "
+                    >
+                      {question.contest.title}
+                    </a>
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </Suspense>
+      <Pagination
+        totalQuestions={totalQuestions}
+        currentPage={page}
+        limit={limit}
+      />
     </section>
   );
 }

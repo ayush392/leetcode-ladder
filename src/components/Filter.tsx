@@ -1,17 +1,55 @@
 "use client";
-import { useState, Suspense, useCallback, useEffect } from "react";
+import { useState, useCallback } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import DropdownButton from "./DropdownButton";
+import { CloseIcon, ResetIcon, SearchIcon } from "./icons";
 
-const closeIcon = <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em" height="1em" className="h-3.5 w-3.5"><path fill-rule="evenodd" d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm1.414-10l2.293-2.293a1 1 0 00-1.414-1.414L12 10.586 9.707 8.293a1 1 0 00-1.414 1.414L10.586 12l-2.293 2.293a1 1 0 101.414 1.414L12 13.414l2.293 2.293a1 1 0 001.414-1.414L13.414 12z" clip-rule="evenodd"></path></svg>
+const items = {
+  contest: [
+    { name: "Weekly Contest", value: "Weekly" },
+    { name: "Biweekly Contest", value: "Biweekly" },
+  ],
+  difficulty: [
+    { name: "Easy", value: "Easy", color: "text-green-500" },
+    { name: "Medium", value: "Medium", color: "text-amber-500" },
+    { name: "Hard", value: "Hard", color: "text-red-500" },
+  ],
+  credit: [
+    { name: "1 credit", value: 1 },
+    { name: "2 credits", value: 2 },
+    { name: "3 credits", value: 3 },
+    { name: "4 credits", value: 4 },
+    { name: "5 credits", value: 5 },
+    { name: "6 credits", value: 6 },
+    { name: "7 credits", value: 7 },
+    { name: "8 credits", value: 8 },
+    { name: "9 credits", value: 9 },
+    { name: "10 credits", value: 10 },
+  ],
+};
 
-function Filter({contest, difficulty, credit, search}: {contest: string, difficulty: string, credit: string, search: string}) {
+function Filter({
+  contest,
+  difficulty,
+  credit,
+  search,
+}: {
+  contest: string;
+  difficulty: string;
+  credit: string;
+  search: string;
+}) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
   const [isOpen, setIsOpen] = useState("");
-  const [filters, setFilters] = useState({contest, difficulty, credit, search});
+  const [filters, setFilters] = useState({
+    contest,
+    difficulty,
+    credit: credit ? credit + " credits" : "",
+    search,
+  });
 
   const createQueryString = useCallback(
     (name: string, value: string) => {
@@ -35,30 +73,6 @@ function Filter({contest, difficulty, credit, search}: {contest: string, difficu
     const newFilters = { ...filters, [name.toLowerCase()]: newValue };
     setFilters(newFilters);
     router.push(pathname + "?" + createQueryString(name.toLowerCase(), value));
-  };
-
-  const items = {
-    contest: [
-      { name: "Weekly Contest", value: "Weekly" },
-      { name: "Biweekly Contest", value: "Biweekly" },
-    ],
-    difficulty: [
-      { name: "Easy", value: "Easy", color: "text-teal-600" },
-      { name: "Medium", value: "Medium", color: "text-yellow-600" },
-      { name: "Hard", value: "Hard", color: "text-red-600" },
-    ],
-    credit: [
-      { name: "1 credit", value: 1 },
-      { name: "2 credits", value: 2 },
-      { name: "3 credits", value: 3 },
-      { name: "4 credits", value: 4 },
-      { name: "5 credits", value: 5 },
-      { name: "6 credits", value: 6 },
-      { name: "7 credits", value: 7 },
-      { name: "8 credits", value: 8 },
-      { name: "9 credits", value: 9 },
-      { name: "10 credits", value: 10 },
-    ],
   };
 
   const removeFilter = (key: string) => {
@@ -102,15 +116,21 @@ function Filter({contest, difficulty, credit, search}: {contest: string, difficu
           isOpen={isOpen}
           setIsOpen={setIsOpen}
         />
-        <input
-          type="text"
-          name="search"
-          className="border border-gray-300 rounded-md p-1 focus:outline-none focus:ring-1 focus:ring-gray-200 dark:focus:ring-gray-700"
-          placeholder="Search questions"
-          value={filters.search}
-          onChange={handleChange}
-          onClick={() => setIsOpen("")}
-        />
+
+        <label htmlFor="search" className="relative">
+          <div className="absolute inset-y-0 flex items-center pl-2 text-gray-6 dark:text-dark-gray-6 pointer-events-none left-0">
+            <SearchIcon className={"text-gray-400 dark:text-gray-300"} />
+          </div>
+          <input
+            type="text"
+            name="search"
+            className="border ps-8 border-gray-300 rounded-md p-1 focus:outline-none focus:ring-1 focus:ring-gray-200 dark:focus:ring-gray-700"
+            placeholder="Search questions"
+            value={filters.search}
+            onChange={handleChange}
+            onClick={() => setIsOpen("")}
+          />
+        </label>
       </div>
       <div className="flex gap-8 items-center">
         <div className="flex gap-4">
@@ -123,17 +143,29 @@ function Filter({contest, difficulty, credit, search}: {contest: string, difficu
                 >
                   <span className="">{value}</span>
                   <button
-                    className="rounded-full size-2.5 block"
+                    className="rounded-full flex items-center "
                     onClick={() => removeFilter(key)}
                   >
-                    {closeIcon}
+                    <CloseIcon className=" text-gray-500 hover:text-gray-700" />
                   </button>
                 </div>
               );
             }
           })}
         </div>
-        <button className={`${Object.values(filters).some(filter => filter !== "" && filter !== undefined) ? 'block' : 'hidden'}`} onClick={handleResetFilter}>reset</button>
+        <button
+          className={`${
+            Object.values(filters).some(
+              (filter) => filter !== "" && filter !== undefined
+            )
+              ? "flex items-center gap-1.5 text-gray-500 hover:text-gray-700 dark:text-gray-400"
+              : "hidden"
+          }`}
+          onClick={handleResetFilter}
+        >
+          <ResetIcon />
+          <span>Reset</span>
+        </button>
       </div>
     </section>
   );

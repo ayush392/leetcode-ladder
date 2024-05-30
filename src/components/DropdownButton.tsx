@@ -1,27 +1,25 @@
 import React from 'react'
-const upArrow = <svg className="w-2.5 h-2.5 ms-2.5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-<path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 5l4-4 4 4"/>
-</svg>
+import { DownArrow, UpArrow } from "./icons";
 
-const downArrow = <svg className="w-2.5 h-2.5 ms-2.5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-<path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 1 4 4 4-4"/>
-</svg>
-
-{/* <Suspense fallback={<div>Loading...</div>}>
-<DropdownButton buttonName="Contest" dropdownItems={items.contest} />
-</Suspense> */}
-
-function DropdownButton({buttonName, dropdownItems, handleChange, isOpen, setIsOpen}:any) {
+function DropdownButton({
+  buttonName,
+  dropdownItems,
+  handleChange,
+  isOpen,
+  setIsOpen,
+}: any) {
   return (
     <div>
       <button
-        onClick={() => {isOpen === buttonName ? setIsOpen("") : setIsOpen(buttonName)}}
+        onClick={() => {
+          isOpen === buttonName ? setIsOpen("") : setIsOpen(buttonName);
+        }}
         // onBlur={() => {isOpen === buttonName ? setIsOpen("") : setIsOpen(buttonName)}}
         className="inline-flex items-center text-gray-500 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-1 focus:ring-gray-200 font-medium rounded-md text-sm px-3 py-1.5 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
         type="button"
       >
         {buttonName}
-        <span>{isOpen === buttonName ? upArrow : downArrow}</span>
+        <span>{isOpen === buttonName ? <UpArrow /> : <DownArrow />}</span>
       </button>
       {/* <!-- Dropdown menu --> */}
       <div
