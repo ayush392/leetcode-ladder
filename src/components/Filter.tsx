@@ -93,8 +93,8 @@ function Filter({
   };
 
   return (
-    <section className="my-6">
-      <div className="flex flex-wrap gap-4 my-3">
+    <section className="py-6">
+      <div className="flex flex-wrap gap-4">
         <DropdownButton
           buttonName="Contest"
           dropdownItems={items.contest}
@@ -124,49 +124,48 @@ function Filter({
           <input
             type="text"
             name="search"
-            className="bg-gray-100 text-sm px-3 py-1.5 border border-gray-200 rounded-md ps-8 focus:outline-none hover:bg-gray-200 focus:ring-1 focus:ring-gray-200"
-            placeholder="Search questions"
+            className="inline-flex bg-gray-100 dark:bg-neutral-800 dark:hover:bg-neutral-700 rounded-md text-sm px-3 py-1.5 ps-8 items-center border border-gray-200 focus:outline-none hover:bg-gray-200 focus:ring-1 focus:ring-gray-200 dark:border-neutral-700 dark:focus:ring-neutral-700"
+  placeholder="Search questions"
             value={filters.search}
             onChange={handleChange}
             onClick={() => setIsOpen("")}
           />
         </label>
       </div>
-      <div className="flex items-center gap-8">
-        <div className="flex gap-4">
-          {Object.entries(filters).map(([key, value], index) => {
-            if (value) {
-              return (
-                <div
-                  key={index}
-                  className="flex gap-1 items-center text-xs bg-gray-100 px-2 py-1.5 rounded-md  "
-                >
-                  <span className="">{value}</span>
-                  <button
-                    className="flex items-center rounded-full "
-                    onClick={() => removeFilter(key)}
+
+      {Object.values(filters).some(
+        (filter) => filter !== "" && filter !== undefined
+      ) && (
+        <div className="flex items-center gap-8 mt-3">
+          <div className="flex gap-4">
+            {Object.entries(filters).map(([key, value], index) => {
+              if (value) {
+                return (
+                  <div
+                    key={index}
+                    className="flex gap-1 items-center text-xs bg-gray-100 px-2 py-1.5 rounded-md dark:bg-neutral-800"
                   >
-                    <CloseIcon className="text-gray-400 hover:text-gray-500" />
-                  </button>
-                </div>
-              );
-            }
-          })}
+                    <span className="">{value}</span>
+                    <button
+                      className="flex items-center rounded-full "
+                      onClick={() => removeFilter(key)}
+                    >
+                      <CloseIcon className="text-gray-400 hover:text-gray-500 dark:hover:text-neutral-300" />
+                    </button>
+                  </div>
+                );
+              }
+            })}
+          </div>
+          <button
+            className="flex items-center gap-1.5 text-gray-500 dark:text-neutral-300 hover:text-gray-700 hover:dark:text-neutral-200 cursor-pointer"
+            onClick={handleResetFilter}
+          >
+            <ResetIcon />
+            <span>Reset</span>
+          </button>
         </div>
-        <button
-          className={`${
-            Object.values(filters).some(
-              (filter) => filter !== "" && filter !== undefined
-            )
-              ? "flex items-center gap-1.5 text-gray-500 hover:text-gray-700 cursor-pointer"
-              : "hidden"
-          }`}
-          onClick={handleResetFilter}
-        >
-          <ResetIcon />
-          <span>Reset</span>
-        </button>
-      </div>
+      )}
     </section>
   );
 }

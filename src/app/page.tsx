@@ -5,6 +5,7 @@ import TableHead from "@/components/TableHead";
 import Checkbox from "@/components/Checkbox";
 import Pagination from "@/components/Pagination";
 import { Suspense } from "react";
+import ThemeSwitcher from "@/components/ThemeSwitcher";
 
 async function Home({ searchParams }: any) {
   await connectToDb();
@@ -44,7 +45,13 @@ async function Home({ searchParams }: any) {
   // <a href={`https://leetcode.com/problems/${question.titleSlug}`} target="_blank" rel="noreferrer">
 
   return (
-    <main className="text-sm text-gray-700 dark:text-gray-100 dark:bg-gray-900 md:text-base">
+    <main className="text-sm text-gray-700 dark:text-neutral-100 md:text-base">
+      <header className="border-b shadow-sm dark:border-neutral-500">
+        <div className="flex items-center justify-between max-w-6xl py-4 mx-auto">
+          <h1 className="text-2xl font-bold">Leetcode Archive</h1>
+          <ThemeSwitcher/>
+        </div>
+      </header>
       <section className="max-w-6xl mx-auto ">
         <Filter
           contest={contest}
@@ -60,7 +67,7 @@ async function Home({ searchParams }: any) {
                 return (
                   <tr
                     key={question._id}
-                    className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800"
+                    className="odd:bg-white odd:dark:bg-neutral-900 even:bg-gray-50 even:dark:bg-neutral-800"
                   >
                     <td className="px-6 py-3">
                       <Checkbox questionId={question.questionId} />

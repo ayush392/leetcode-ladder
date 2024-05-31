@@ -15,7 +15,7 @@ function DropdownButton({
           isOpen === buttonName ? setIsOpen("") : setIsOpen(buttonName);
         }}
         // onBlur={() => {isOpen === buttonName ? setIsOpen("") : setIsOpen(buttonName)}}
-        className="inline-flex bg-gray-100 rounded-md text-sm px-3 py-1.5 items-center border border-gray-200 focus:outline-none hover:bg-gray-200 focus:ring-1 focus:ring-gray-200"
+        className="inline-flex bg-gray-100 dark:bg-neutral-800 dark:hover:bg-neutral-700 rounded-md text-sm px-3 py-1.5 items-center border border-gray-200 focus:outline-none hover:bg-gray-200 focus:ring-1 focus:ring-gray-200 dark:border-neutral-700 dark:focus:ring-neutral-700"
         type="button"
       >
         {buttonName}
@@ -25,7 +25,7 @@ function DropdownButton({
       <div
         className={`z-10 ${
           isOpen === buttonName ? "absolute" : "hidden"
-        } bg-white mt-1  rounded-md shadow w-44 `}
+        } bg-white dark:bg-neutral-800 mt-1 rounded-md shadow w-44 `}
       >
         <ul className="py-1 text-sm">
           {dropdownItems.map((item: any, index: number) => (
@@ -34,7 +34,7 @@ function DropdownButton({
                 name={buttonName}
                 value={item.value}
                 onClick={handleChange}
-                className={`block w-full text-left px-4 py-2 hover:bg-gray-100 ${item?.color}`}
+                className={`block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-neutral-700 ${item?.color}`}
               >
                 {item.name}
               </button>
