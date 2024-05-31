@@ -15,7 +15,7 @@ function DropdownButton({
           isOpen === buttonName ? setIsOpen("") : setIsOpen(buttonName);
         }}
         // onBlur={() => {isOpen === buttonName ? setIsOpen("") : setIsOpen(buttonName)}}
-        className="inline-flex items-center text-gray-500 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-1 focus:ring-gray-200 font-medium rounded-md text-sm px-3 py-1.5"
+        className="inline-flex bg-gray-100 rounded-md text-sm px-3 py-1.5 items-center border border-gray-200 focus:outline-none hover:bg-gray-200 focus:ring-1 focus:ring-gray-200"
         type="button"
       >
         {buttonName}
@@ -27,7 +27,7 @@ function DropdownButton({
           isOpen === buttonName ? "absolute" : "hidden"
         } bg-white mt-1  rounded-md shadow w-44 `}
       >
-        <ul className="py-1 text-sm text-gray-700 ">
+        <ul className="py-1 text-sm">
           {dropdownItems.map((item: any, index: number) => (
             <li key={index}>
               <button

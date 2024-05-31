@@ -93,8 +93,8 @@ function Filter({
   };
 
   return (
-    <section className="">
-      <div className="flex gap-4 my-4">
+    <section className="my-6">
+      <div className="flex flex-wrap gap-4 my-3">
         <DropdownButton
           buttonName="Contest"
           dropdownItems={items.contest}
@@ -118,13 +118,13 @@ function Filter({
         />
 
         <label htmlFor="search" className="relative">
-          <div className="absolute inset-y-0 flex items-center pl-2 text-gray-6 pointer-events-none left-0">
-            <SearchIcon className={"text-gray-400 "} />
+          <div className="absolute inset-y-0 left-0 flex items-center pl-2 pointer-events-none">
+            <SearchIcon className={"text-gray-500"} />
           </div>
           <input
             type="text"
             name="search"
-            className="border ps-8 border-gray-300 rounded-md p-1 focus:outline-none focus:ring-1 focus:ring-gray-200"
+            className="bg-gray-100 text-sm px-3 py-1.5 border border-gray-200 rounded-md ps-8 focus:outline-none hover:bg-gray-200 focus:ring-1 focus:ring-gray-200"
             placeholder="Search questions"
             value={filters.search}
             onChange={handleChange}
@@ -132,21 +132,21 @@ function Filter({
           />
         </label>
       </div>
-      <div className="flex gap-8 items-center">
+      <div className="flex items-center gap-8">
         <div className="flex gap-4">
           {Object.entries(filters).map(([key, value], index) => {
             if (value) {
               return (
                 <div
                   key={index}
-                  className="flex gap-1 items-center text-xs bg-gray-200 px-2 py-1.5 rounded-md  "
+                  className="flex gap-1 items-center text-xs bg-gray-100 px-2 py-1.5 rounded-md  "
                 >
                   <span className="">{value}</span>
                   <button
-                    className="rounded-full flex items-center "
+                    className="flex items-center rounded-full "
                     onClick={() => removeFilter(key)}
                   >
-                    <CloseIcon className=" text-gray-500 hover:text-gray-700" />
+                    <CloseIcon className="text-gray-400 hover:text-gray-500" />
                   </button>
                 </div>
               );
@@ -158,7 +158,7 @@ function Filter({
             Object.values(filters).some(
               (filter) => filter !== "" && filter !== undefined
             )
-              ? "flex items-center gap-1.5 text-gray-500 hover:text-gray-700"
+              ? "flex items-center gap-1.5 text-gray-500 hover:text-gray-700 cursor-pointer"
               : "hidden"
           }`}
           onClick={handleResetFilter}
